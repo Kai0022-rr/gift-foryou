@@ -8,37 +8,39 @@
     
     <style>
         :root {
-           --hot-pink: #ff0054;
-            --soft-pink: rgba(255, 133, 162, 0.6); /* Pink Transparan */
-            --bg-pink: #fff0f3;
+            --hot-pink: #ff0054;
+            --soft-pink: #ff85a2;
         }
 
         body {
             margin: 0; padding: 0;
-            background: var(--bg-pink);
+            /* Background Gradasi Estetik */
+            background: linear-gradient(135deg, #fce4ec 0%, #ffc1e3 50%, #f8bbd0 100%);
+            background-size: cover;
             font-family: 'Montserrat', sans-serif;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; overflow: hidden;
         }
 
-        /* Overlay Awal agar Musik bisa Play */
+        /* Overlay Awal Transparan */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 133, 162, 0.8); /* Transparansi 80% */
-            backdrop-filter: blur(10px); /* Efek Buram */
+            background: rgba(255, 133, 162, 0.7); 
+            backdrop-filter: blur(8px);
             z-index: 100;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: white; transition: 0.8s ease;
         }
 
+        /* Card Transparan (Glassmorphism) */
         .card {
-            background: rgba(255, 255, 255, 0.25); /* Putih Transparan */
+            background: rgba(255, 255, 255, 0.3); /* Transparan Putih */
             backdrop-filter: blur(15px); /* Efek Kaca Buram */
             -webkit-backdrop-filter: blur(15px);
             padding: 40px; border-radius: 30px;
-            box-shadow: 0 8px 32px 0 rgba(255, 0, 84, 0.2);
+            box-shadow: 0 15px 35px rgba(255, 0, 84, 0.1);
             text-align: center; max-width: 500px; width: 85%;
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Border halus */
+            border: 1px solid rgba(255, 255, 255, 0.4);
             z-index: 10;
         }
 
@@ -46,18 +48,18 @@
         
         .quote {
             font-family: 'Playfair Display', serif; font-style: italic;
-            font-size: 1.1rem; line-height: 1.6; color: #555;
-            margin: 25px 0; border-left: 3px solid var(--soft-pink); padding-left: 15px; text-align: left;
+            font-size: 1.1rem; line-height: 1.6; color: #444;
+            margin: 25px 0; border-left: 3px solid var(--hot-pink); padding-left: 15px; text-align: left;
         }
 
         .btn-start {
-            background: white; color: var(--hot-pink); border: none;
+            background: var(--hot-pink); color: white; border: none;
             padding: 15px 35px; border-radius: 50px; font-weight: bold;
             cursor: pointer; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
 
-        .btn-start:hover { transform: scale(1.1); }
+        .btn-start:hover { transform: scale(1.1); background: #d00045; }
 
         .heart { position: fixed; font-size: 25px; animation: fly 3s linear forwards; z-index: 1; }
         @keyframes fly { 0% { transform: translateY(0) rotate(0); opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
@@ -68,11 +70,11 @@
     <div class="overlay" id="loader">
         <h2 style="font-family: 'Dancing Script'; font-size: 3rem; margin-bottom: 10px;">For Lera...</h2>
         <p style="margin-bottom: 20px;">Open your birthday gift</p>
-        <button class="btn-start" onclick="mulai()">KLIK DISINI 🎁</button>
+        <button class="btn-start" style="background: white; color: var(--hot-pink);" onclick="mulai()">CLICK HERE 🎁</button>
     </div>
 
     <div class="card">
-        <p style="letter-spacing: 3px; color: var(--soft-pink); font-weight: 600; margin-bottom: 10px;">HAPPY BIRTHDAY</p>
+        <p style="letter-spacing: 3px; color: var(--hot-pink); font-weight: 600; margin-bottom: 10px;">HAPPY BIRTHDAY</p>
         <h1>Lera! 🌸</h1>
         
         <div class="quote">
@@ -81,8 +83,8 @@
             your darkest days. You deserve nothing less than extraordinary."
         </div>
         
-        <p style="font-size: 0.8rem; color: #999; font-style: italic;">
-            "I just want you to know who I am..." 🎸
+        <p style="font-size: 0.8rem; color: #666; font-style: italic;">
+            "I just want you to know who I am..." 🧸
         </p>
     </div>
 
@@ -92,23 +94,16 @@
 
     <script>
         function mulai() {
-            // Sembunyikan Overlay
             document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-            }, 800);
+            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 800);
 
-            // Putar Lagu
             var lagu = document.getElementById("mySong");
-            lagu.play().catch(function(error) {
-                console.log("Musik gagal putar otomatis: " + error);
-            });
+            lagu.play().catch(function(error) { console.log("Audio error: " + error); });
 
-            // Efek Animasi Bunga & Hati
             setInterval(() => {
                 const h = document.createElement('div');
                 h.className = 'heart';
-                const items = ['🌸','💖','✨','🎀','🧸'];
+                const items = ['🌸','💖','✨','🎀','🧸']; 
                 h.innerHTML = items[Math.floor(Math.random()*items.length)];
                 h.style.left = Math.random() * 100 + 'vw';
                 h.style.top = '100vh';
